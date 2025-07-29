@@ -6,8 +6,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import WAPLLogo from "@/assets/WAPL.png";
+import CrownLogo from "@/assets/5.png";
+import { DUMMY_TEAMS, table_header } from "@/lib/constants";
 
 interface TeamData {
   position: number;
@@ -19,130 +23,134 @@ interface TeamData {
 }
 
 const Leaderboard = () => {
-  // Sample data - replace with actual data
-  const teams: TeamData[] = Array(12)
-    .fill(null)
-    .map((_, index) => ({
-      position: index + 1,
-      teamName: `Team ${index + 1}`,
-      booyah: 0,
-      kills: 0,
-      place: 0,
-      total: 0,
-    }));
+  // In the future, this will be replaced with an API call
+  const teams: TeamData[] = DUMMY_TEAMS;
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-amber-900 via-amber-950 to-amber-900 p-6">
-      <div className="container mx-auto space-y-8">
+    <div className="min-h-screen bg-[#2A1810] px-6 py-8 md:px-12 lg:px-24 font-orbitron">
+      <div className="mx-auto max-w-[1200px] space-y-12">
         {/* Logo Section */}
-        <div className="flex justify-between">
-          <div className="h-20 w-20 rounded-full border-2 border-amber-500 bg-amber-500/10 p-4">
-            <div className="flex h-full items-center justify-center rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-xs font-bold">
-              LOGO
-            </div>
+        <div className="flex justify-between px-8 items-center">
+          <div className="h-20 w-20 md:h-24 md:w-24 lg:h-28 lg:w-28">
+            <img
+              src={WAPLLogo}
+              alt="WAPL Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <div className="h-20 w-20 rounded-full border-2 border-amber-500 bg-amber-500/10 p-4">
-            <div className="flex h-full items-center justify-center rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-xs font-bold">
-              LOGO
-            </div>
-          </div>
-        </div>
 
-        {/* Header Section */}
-        <div className="text-center">
-          <h1 className="text-4xl font-black italic tracking-wider text-white md:text-5xl lg:text-6xl">
-            WEST AFRICA PROFESSIONAL LEAGUE
-            <span className="block text-amber-500">SEASON 2</span>
-          </h1>
-          <h2 className="mt-4 text-xl font-bold tracking-wide text-amber-500 md:text-2xl">
-            LEADERBOARD
+          {/* Header Section */}
+          <div className="text-center px-8 space-y-0">
+            <h1 className="text-2xl tracking-wider text-white md:text-base lg:text-base">
+              WEST AFRICA PROFESSIONAL LEAGUE SEASON 2
+            </h1>
+            {/* <h2 className="-mt-4 italic font-bebas font-bold text-3xl text-white backdrop-blur-2xl md:text-4xl lg:text-[10rem]">
+              LEADERBOARD
+            </h2> */}
+
+            <div className="relative w-fit mx-auto">
+              <h1 className="-mt-4 italic font-bebas font-bold text-3xl text-white backdrop-blu blur-l md:text-4xl lg:text-[10rem] z-10 relative">
+                LEADERBOARD
+              </h1>
+              <div className="absolute bottom- inset-x-0 inset-y-0 bg-white opacity-30 blur-xl z-0" />
+            </div>
+          </div>
+
+          <h2 className="text-lg font-bold uppercase bg-gradient-to-r from-white via-[#fddc78] via-[#fbb03b] via-[#a8711f] to-[#ffdba5] bg-clip-text text-transparent">
+            TEAM NAME
           </h2>
+
+          <div className="h-20 w-20 md:h-24 md:w-24 lg:h-28 lg:w-28">
+            <img
+              src={CrownLogo}
+              alt="Crown Esports Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
         </div>
 
         {/* Leaderboard Table */}
-        <Card className="border-2 border-amber-500 bg-black/80 backdrop-blur-sm">
-          <CardContent className="p-6">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-b-2 border-amber-500 bg-gradient-to-r from-amber-500 to-amber-400 hover:bg-amber-400">
-                  <TableHead className="text-center font-bold text-black">
-                    POS
-                  </TableHead>
-                  <TableHead className="text-center font-bold text-black">
-                    TEAM NAME
-                  </TableHead>
-                  <TableHead className="text-center font-bold text-black">
-                    BOOYAH
-                  </TableHead>
-                  <TableHead className="text-center font-bold text-black">
-                    KILLS
-                  </TableHead>
-                  <TableHead className="text-center font-bold text-black">
-                    PLACE
-                  </TableHead>
-                  <TableHead className="text-center font-bold text-black">
-                    TOTAL
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {teams.map((team) => (
-                  <TableRow
-                    key={team.position}
-                    className="border-b border-amber-500/30 transition-colors hover:bg-amber-500/10"
+        {/* <Card className="p-0 mx-4 overflow-hidden border-none border-[#FFB800] bg-black/40 backdrop-blur-sm">
+          <CardContent className="p-0"> */}
+        <section className="">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-b-2 border-[#FFB800] bg-gradient-to-r from-[#FFB800] to-[#CC9200]">
+                {table_header.map((item) => (
+                  <TableHead
+                    key={item}
+                    className="h-12 text-center text-sm font-black text-black md:text-base"
                   >
-                    <TableCell className="text-center font-semibold text-white">
-                      {team.position}
-                    </TableCell>
-                    <TableCell className="text-center font-semibold text-white">
-                      {team.teamName}
-                    </TableCell>
-                    <TableCell className="text-center font-semibold text-white">
-                      {team.booyah}
-                    </TableCell>
-                    <TableCell className="text-center font-semibold text-white">
-                      {team.kills}
-                    </TableCell>
-                    <TableCell className="text-center font-semibold text-white">
-                      {team.place}
-                    </TableCell>
-                    <TableCell className="text-center font-semibold text-white">
-                      {team.total}
-                    </TableCell>
-                  </TableRow>
+                    {item}
+                  </TableHead>
                 ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {teams.map((team) => (
+                <TableRow
+                  key={team.position}
+                  className="border-b border-[#FFB800]/30 bg-[#4A2810]/40 transition-colors hover:bg-[#FFB800]/10"
+                >
+                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                    {team.position}
+                  </TableCell>
+                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                    {team.teamName}
+                  </TableCell>
+                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                    {team.booyah}
+                  </TableCell>
+                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                    {team.kills}
+                  </TableCell>
+                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                    {team.place}
+                  </TableCell>
+                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                    {team.total}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </section>
+        {/* </CardContent>
+        </Card> */}
 
         {/* Footer Section */}
-        <div className="text-center space-y-4">
-          <div className="inline-block transform perspective-100 rotate-x-5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 p-4 rounded-lg border-2 border-amber-600 shadow-lg hover:scale-105 transition-transform">
-            <span className="text-2xl font-black italic text-black">
-              FREE FIRE
-            </span>
+        <div className="space-y-6 text-center px-8">
+          <div className="inline-block">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Free_fire_logo.png"
+              alt="Free Fire Logo"
+              className="h-20 object-contain md:h-24"
+            />
           </div>
           <div>
             <Badge
               variant="outline"
-              className="px-6 py-2 text-base bg-amber-500/10 border-amber-500 text-white"
+              className="px-6 py-2 text-sm bg-[#4A2810]/40 border-[#FFB800] text-white md:text-base"
             >
-              WATCH ALL THE ACTION LIVE ON YOUTUBE @3CROWN ESPORTS
+              WATCH ALL THE ACTION LIVE ON YOUTUBE 3CROWN ESPORTS
             </Badge>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="flex justify-between items-end mt-8">
-          <Badge variant="outline" className="text-amber-500 border-amber-500">
+        <div className="mt-8 flex items-end justify-between px-8">
+          <Badge
+            variant="outline"
+            className="text-[#FFB800] border-[#FFB800] text-sm px-4 py-1.5 md:text-base"
+          >
             #3CROWNWAPLS2
           </Badge>
           <div className="flex gap-4">
             {["S1", "S2", "S3"].map((sponsor, index) => (
               <div
                 key={index}
-                className="h-10 w-10 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 flex items-center justify-center text-xs font-bold text-black"
+                className="h-10 w-10 rounded-lg bg-[#FFB800] flex items-center justify-center text-xs font-bold text-black md:h-12 md:w-12 md:text-sm"
               >
                 {sponsor}
               </div>
