@@ -1,3 +1,7 @@
+import EsportLogo from "@/assets/esport-africa.png";
+import IceLogo from "@/assets/ice.png";
+import MlnLogo from "@/assets/mln.png";
+
 export interface TeamData {
   position: number;
   teamName: string;
@@ -114,3 +118,9 @@ export const DUMMY_TEAMS: TeamData[] = [
     total: 67,
   },
 ];
+
+export const sponsors = [
+  EsportLogo,
+  IceLogo,
+  MlnLogo
+]

@@ -7,11 +7,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import WAPLLogo from "@/assets/WAPL.png";
 import CrownLogo from "@/assets/5.png";
-import { DUMMY_TEAMS, table_header } from "@/lib/constants";
+import WAPLLogo from "@/assets/WAPL.png";
+import { FaYoutube } from "react-icons/fa";
+import { Badge } from "@/components/ui/badge";
+import { DUMMY_TEAMS, table_header, sponsors } from "@/lib/constants";
 
 interface TeamData {
   position: number;
@@ -27,11 +27,11 @@ const Leaderboard = () => {
   const teams: TeamData[] = DUMMY_TEAMS;
 
   return (
-    <div className="min-h-screen bg-[#2A1810] px-6 py-8 md:px-12 lg:px-24 font-orbitron">
+    <section className="min-h-screen px-6 py-8 md:px-12 lg:px-24 font-orbitron">
       <div className="mx-auto max-w-[1200px] space-y-12">
         {/* Logo Section */}
-        <div className="flex justify-between px-8 items-center">
-          <div className="h-20 w-20 md:h-24 md:w-24 lg:h-28 lg:w-28">
+        <div className="flex justify-between items-center">
+          <div className="size-20 md:size-24 lg:size-44">
             <img
               src={WAPLLogo}
               alt="WAPL Logo"
@@ -40,27 +40,20 @@ const Leaderboard = () => {
           </div>
 
           {/* Header Section */}
-          <div className="text-center px-8 space-y-0">
-            <h1 className="text-2xl tracking-wider text-white md:text-base lg:text-base">
+          <div className="flex flex-col items-center pt-16 px-8 space-y-0">
+            <h1 className="text-2xl ml-10 tracking-wider text-white md:text-base lg:text-lg">
               WEST AFRICA PROFESSIONAL LEAGUE SEASON 2
             </h1>
-            {/* <h2 className="-mt-4 italic font-bebas font-bold text-3xl text-white backdrop-blur-2xl md:text-4xl lg:text-[10rem]">
-              LEADERBOARD
-            </h2> */}
 
             <div className="relative w-fit mx-auto">
-              <h1 className="-mt-4 italic font-bebas font-bold text-3xl text-white backdrop-blu blur-l md:text-4xl lg:text-[10rem] z-10 relative">
+              <h1 className="-mt-2 italic font-bebas font-bold text-3xl text-white backdrop-blu blur-l md:text-4xl lg:text-9xl z-10 relative">
                 LEADERBOARD
               </h1>
               <div className="absolute bottom- inset-x-0 inset-y-0 bg-white opacity-30 blur-xl z-0" />
             </div>
           </div>
 
-          <h2 className="text-lg font-bold uppercase bg-gradient-to-r from-white via-[#fddc78] via-[#fbb03b] via-[#a8711f] to-[#ffdba5] bg-clip-text text-transparent">
-            TEAM NAME
-          </h2>
-
-          <div className="h-20 w-20 md:h-24 md:w-24 lg:h-28 lg:w-28">
+          <div className="size-20 md:size-24 lg:size-44">
             <img
               src={CrownLogo}
               alt="Crown Esports Logo"
@@ -70,16 +63,15 @@ const Leaderboard = () => {
         </div>
 
         {/* Leaderboard Table */}
-        {/* <Card className="p-0 mx-4 overflow-hidden border-none border-[#FFB800] bg-black/40 backdrop-blur-sm">
-          <CardContent className="p-0"> */}
-        <section className="">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-b-2 border-[#FFB800] bg-gradient-to-r from-[#FFB800] to-[#CC9200]">
+        <section className="space-y-2">
+          {/* border-separate border-spacing-y-2 border-spacing-x-0 */}
+          <Table className="border-separate border-spacing-y-2 border-spacing-x-0">
+            <TableHeader className="[&_tr]:border-4">
+              <TableRow className="bg-black hover:bg-black border-[#FFB800]">
                 {table_header.map((item) => (
                   <TableHead
                     key={item}
-                    className="h-12 text-center text-sm font-black text-black md:text-base"
+                    className="py-3 text-center text-sm font-black md:text-lg uppercase bg-gradient-to-r from-white from-27% via-[#ffbb4d] to-[#ffffff] to-90% bg-clip-text text-transparent first:rounded-l-sm last:rounded-r-sm border-4 border-x-0 first:border-l-4 last:border-r-4 border-[#ffbb4d]"
                   >
                     {item}
                   </TableHead>
@@ -87,28 +79,29 @@ const Leaderboard = () => {
               </TableRow>
             </TableHeader>
 
-            <TableBody>
+            {/* [&_tr:last-child]:border-4 */}
+            <TableBody className="">
               {teams.map((team) => (
                 <TableRow
                   key={team.position}
-                  className="border-b border-[#FFB800]/30 bg-[#4A2810]/40 transition-colors hover:bg-[#FFB800]/10"
+                  className="bg-transparent hover:bg-[#FFB800]/10 text-white text-center font-orbitron text-sm font-bold md:text-base border-b-0"
                 >
-                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                  <TableCell className="bg-black border-4 border-r-0 rounded-l-sm border-[#ffbb4d]">
                     {team.position}
                   </TableCell>
-                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                  <TableCell className="border-4 border-r-0 border-[#ffbb4d]">
                     {team.teamName}
                   </TableCell>
-                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                  <TableCell className="bg-black border-4 border-r-0 border-[#ffbb4d]">
                     {team.booyah}
                   </TableCell>
-                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                  <TableCell className="border-4 border-r-0 border-[#ffbb4d]">
                     {team.kills}
                   </TableCell>
-                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                  <TableCell className="bg-black border-4 border-r-0 border-[#ffbb4d]">
                     {team.place}
                   </TableCell>
-                  <TableCell className="h-10 text-center text-sm font-bold text-[#FFB800] md:text-base">
+                  <TableCell className="border-4 rounded-r-sm border-[#ffbb4d]">
                     {team.total}
                   </TableCell>
                 </TableRow>
@@ -116,8 +109,6 @@ const Leaderboard = () => {
             </TableBody>
           </Table>
         </section>
-        {/* </CardContent>
-        </Card> */}
 
         {/* Footer Section */}
         <div className="space-y-6 text-center px-8">
@@ -129,37 +120,45 @@ const Leaderboard = () => {
             />
           </div>
           <div>
-            <Badge
-              variant="outline"
-              className="px-6 py-2 text-sm bg-[#4A2810]/40 border-[#FFB800] text-white md:text-base"
-            >
-              WATCH ALL THE ACTION LIVE ON YOUTUBE 3CROWN ESPORTS
+            <Badge className="px-6 py-3 text-sm bg-gradient-to-r from-[#56360d]/40 to-[#140604] text-white md:text-lg font-medium tracking-wider [&>svg]:size-5 cursor-pointer">
+              WATCH ALL THE ACTION LIVE ON YOUTUBE{" "}
+              <FaYoutube className="ml-2 text-white" /> 3CROWN ESPORTS
             </Badge>
           </div>
         </div>
 
         {/* Bottom Section */}
         <div className="mt-8 flex items-end justify-between px-8">
-          <Badge
-            variant="outline"
-            className="text-[#FFB800] border-[#FFB800] text-sm px-4 py-1.5 md:text-base"
-          >
-            #3CROWNWAPLS2
-          </Badge>
-          <div className="flex gap-4">
-            {["S1", "S2", "S3"].map((sponsor, index) => (
-              <div
-                key={index}
-                className="h-10 w-10 rounded-lg bg-[#FFB800] flex items-center justify-center text-xs font-bold text-black md:h-12 md:w-12 md:text-sm"
-              >
-                {sponsor}
-              </div>
+          <div className="gold-gradient-border">
+            <h2 className="text-white text-sm px-4 py-1.5 md:text-base font-roboto bg-black">
+              #3CROWNWAPLS2
+            </h2>
+          </div>
+
+          <div className="flex justify-center items-center gap-4">
+            {sponsors.map((sponsor, index) => (
+                <img
+                key={index  + 'w'}
+                src={sponsor}
+                alt={`${sponsor} logo`}
+                className="h-10 object-contain"
+              />
             ))}
           </div>
         </div>
+        {/*  */}
       </div>
-    </div>
+    </section>
   );
 };
 
 export default Leaderboard;
+
+/* 
+ <div
+                key={index}
+                className="h-10 w-10 rounded-lg bg-[#FFB800] text-xs font-bold text-black md:h-12 md:w-12 md:text-sm"
+              >
+                {sponsor}
+              </div>
+*/
