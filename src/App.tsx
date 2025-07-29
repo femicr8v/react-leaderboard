@@ -1,13 +1,7 @@
-import { Button } from "@/components/ui/button";
+import Leaderboard from "./components/Leaderboard";
 
 function App() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-
-      <h2 className="text-2xl font-bold">Hello World</h2>
-    </div>
-  );
+  return <Leaderboard />;
 }
 
 export default App;
