@@ -1,6 +1,6 @@
-import EsportLogo from "@/assets/esport-africa.png";
 import IceLogo from "@/assets/ice.png";
 import MlnLogo from "@/assets/mln.png";
+import EsportLogo from "@/assets/esport-africa.png";
 
 export interface TeamData {
   position: number;

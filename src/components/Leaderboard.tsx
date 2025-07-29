@@ -80,8 +80,7 @@ const Leaderboard = () => {
               </TableRow>
             </TableHeader>
 
-            {/* [&_tr:last-child]:border-4 */}
-            <TableBody className="">
+            <TableBody>
               {teams.map((team) => (
                 <TableRow
                   key={team.position}
