@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>West Africa Professional League Season 2 - Leaderboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&family=Rajdhani:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Exo 2", "Rajdhani", system-ui, -apple-system, "Segoe UI",
+          sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Main Container */
+      .main-container {
+        background: radial-gradient(
+          ellipse at center,
+          #4a2c00 0%,
+          #2d1b00 30%,
+          #1a1100 60%,
+          #0d0800 100%
+        );
+        position: relative;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .main-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 176, 0, 0.05) 0%,
+          transparent 50%,
+          rgba(255, 176, 0, 0.03) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Logo Containers */
+      .logo-container {
+        position: absolute;
+        top: 30px;
+        width: 90px;
+        height: 90px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 176, 0, 0.15) 0%,
+          rgba(255, 176, 0, 0.05) 70%,
+          transparent 100%
+        );
+        border: 3px solid #ffb000;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(255, 176, 0, 0.3),
+          inset 0 0 10px rgba(255, 176, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+
+      .logo-left {
+        left: 30px;
+      }
+
+      .logo-right {
+        right: 30px;
+      }
+
+      .logo-placeholder {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(145deg, #ffb000, #ffd700);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        font-weight: 900;
+        font-size: 12px;
+      }
+
+      /* Header Section */
+      .header-section {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 60px;
+      }
+
+      .main-title {
+        color: #ffffff;
+        font-size: clamp(28px, 5vw, 52px);
+        font-weight: 900;
+        text-shadow: 3px 3px 0px #ffb000, 6px 6px 0px #cc8f00,
+          2px 2px 20px rgba(255, 176, 0, 0.4);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-style: italic;
+        line-height: 1.1;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        color: #ffb000;
+        font-size: clamp(16px, 2.5vw, 22px);
+        font-weight: 700;
+        text-shadow: 2px 2px 0px #cc8f00, 1px 1px 10px rgba(255, 176, 0, 0.3);
+        letter-spacing: 1px;
+      }
+
+      /* Leaderboard Table */
+      .leaderboard-container {
+        background: linear-gradient(
+          145deg,
+          rgba(0, 0, 0, 0.95) 0%,
+          rgba(26, 17, 0, 0.9) 100%
+        );
+        border: 4px solid #ffb000;
+        border-radius: 16px;
+        box-shadow: 0 0 40px rgba(255, 176, 0, 0.4),
+          0 8px 32px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 176, 0, 0.1);
+        backdrop-filter: blur(10px);
+        max-width: 950px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .leaderboard-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table-header {
+        background: linear-gradient(
+          90deg,
+          #ffb000 0%,
+          #ffd700 30%,
+          #ffb000 70%,
+          #e6a000 100%
+        );
+        color: #000000;
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        border-bottom: 3px solid #cc8f00;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .table-header th {
+        padding: 16px 12px;
+        text-align: center;
+        border-right: 2px solid #cc8f00;
+      }
+
+      .table-header th:last-child {
+        border-right: none;
+      }
+
+      .table-row {
+        background: transparent;
+        border-bottom: 2px solid #ffb000;
+        height: 60px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+
+      .table-row:hover {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 176, 0, 0.15) 0%,
+          rgba(255, 176, 0, 0.08) 50%,
+          rgba(255, 176, 0, 0.15) 100%
+        );
+        border-color: #ffd700;
+        transform: scale(1.02);
+        box-shadow: 0 4px 15px rgba(255, 176, 0, 0.2);
+      }
+
+      .table-cell {
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 16px 12px;
+        text-align: center;
+        border-right: 2px solid #ffb000;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      }
+
+      .table-cell:last-child {
+        border-right: none;
+      }
+
+      /* Game Footer */
+      .game-footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 25px;
+      }
+
+      .game-logo {
+        background: linear-gradient(
+          145deg,
+          #ffb000 0%,
+          #ffd700 50%,
+          #ffb000 100%
+        );
+        border: 3px solid #cc8f00;
+        border-radius: 12px;
+        padding: 12px 24px;
+        display: inline-block;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 20px rgba(255, 176, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transform: perspective(100px) rotateX(5deg);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .game-logo:hover {
+        transform: perspective(100px) rotateX(5deg) scale(1.05);
+        box-shadow: 0 8px 25px rgba(255, 176, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+
+      .game-text {
+        color: #000000;
+        font-size: 24px;
+        font-weight: 900;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        letter-spacing: 2px;
+        font-style: italic;
+      }
+
+      .streaming-info {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 176, 0, 0.2) 0%,
+          rgba(255, 176, 0, 0.3) 50%,
+          rgba(255, 176, 0, 0.2) 100%
+        );
+        border: 2px solid #ffb000;
+        border-radius: 8px;
+        padding: 12px 25px;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        display: inline-block;
+        box-shadow: 0 4px 12px rgba(255, 176, 0, 0.3);
+        letter-spacing: 1px;
+      }
+
+      /* Hashtag */
+      .hashtag {
+        color: #ffb000;
+        font-size: 14px;
+        font-weight: 700;
+        position: absolute;
+        bottom: 25px;
+        left: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        letter-spacing: 1px;
+      }
+
+      /* Sponsor Logos */
+      .sponsor-logos {
+        position: absolute;
+        bottom: 25px;
+        right: 25px;
+        display: flex;
+        gap: 15px;
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4))
+          drop-shadow(0 0 10px rgba(255, 176, 0, 0.2));
+      }
+
+      .sponsor-logo {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(145deg, #ffb000, #ffd700);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        font-weight: 700;
+        font-size: 10px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .main-container {
+          padding: 15px;
+        }
+
+        .logo-container {
+          width: 60px;
+          height: 60px;
+          top: 20px;
+        }
+
+        .logo-left {
+          left: 15px;
+        }
+
+        .logo-right {
+          right: 15px;
+        }
+
+        .logo-placeholder {
+          width: 40px;
+          height: 40px;
+          font-size: 8px;
+        }
+
+        .main-title {
+          font-size: clamp(20px, 5vw, 32px);
+        }
+
+        .subtitle {
+          font-size: clamp(12px, 3vw, 16px);
+        }
+
+        .table-header {
+          font-size: 12px;
+        }
+
+        .table-header th {
+          padding: 12px 8px;
+        }
+
+        .table-cell {
+          font-size: 11px;
+          padding: 12px 8px;
+        }
+
+        .game-text {
+          font-size: 18px;
+        }
+
+        .streaming-info {
+          font-size: 12px;
+          padding: 8px 16px;
+        }
+
+        .hashtag {
+          font-size: 12px;
+          bottom: 15px;
+          left: 15px;
+        }
+
+        .sponsor-logos {
+          bottom: 15px;
+          right: 15px;
+        }
+
+        .sponsor-logo {
+          width: 30px;
+          height: 30px;
+          font-size: 8px;
+        }
+      }
+
+      @media (max-width: 1024px) and (min-width: 769px) {
+        .main-title {
+          font-size: clamp(28px, 4vw, 40px);
+        }
+
+        .subtitle {
+          font-size: clamp(14px, 2.5vw, 18px);
+        }
+
+        .table-cell {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Logo Containers -->
+      <div class="logo-container logo-left">
+        <div class="logo-placeholder">LOGO</div>
+      </div>
+      <div class="logo-container logo-right">
+        <div class="logo-placeholder">LOGO</div>
+      </div>
+
+      <!-- Header Section -->
+      <div class="header-section">
+        <h1 class="main-title">WEST AFRICA PROFESSIONAL LEAGUE SEASON 2</h1>
+        <h2 class="subtitle">LEADERBOARD</h2>
+      </div>
+
+      <!-- Leaderboard Table -->
+      <div class="leaderboard-container">
+        <table class="leaderboard-table">
+          <thead>
+            <tr class="table-header">
+              <th>POS</th>
+              <th>TEAM NAME</th>
+              <th>BOOYAH</th>
+              <th>KILLS</th>
+              <th>PLACE</th>
+              <th>TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 12 Empty Rows -->
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Game Footer -->
+      <div class="game-footer">
+        <div class="game-logo">
+          <div class="game-text">FREE FIRE</div>
+        </div>
+        <div class="streaming-info">
+          WATCH ALL THE ACTION LIVE ON YOUTUBE @3CROWN ESPORTS
+        </div>
+      </div>
+
+      <!-- Hashtag -->
+      <div class="hashtag">#3CROWNWAPLS2</div>
+
+      <!-- Sponsor Logos -->
+      <div class="sponsor-logos">
+        <div class="sponsor-logo">S1</div>
+        <div class="sponsor-logo">S2</div>
+        <div class="sponsor-logo">S3</div>
+      </div>
+    </div>
+  </body>
+</html>
