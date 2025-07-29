@@ -9,6 +9,7 @@ import {
 
 import CrownLogo from "@/assets/5.png";
 import WAPLLogo from "@/assets/WAPL.png";
+import FreefireLogo from "@/assets/freefire.png";
 import { FaYoutube } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import { DUMMY_TEAMS, table_header, sponsors } from "@/lib/constants";
@@ -111,16 +112,18 @@ const Leaderboard = () => {
         </section>
 
         {/* Footer Section */}
-        <div className="space-y-6 text-center px-8">
+        <div className="space-y-3 text-center px-8">
           <div className="inline-block">
+          <Badge className="px-6 py-3 text-sm bg-gradient-to-r from-[#56360d] to-[#140604] text-white md:text-lg font-medium tracking-wider [&>svg]:size-5 cursor-pointer border-4 border-[#140604]">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Free_fire_logo.png"
-              alt="Free Fire Logo"
-              className="h-20 object-contain md:h-24"
+              src={FreefireLogo}
+              alt={`${FreefireLogo} logo`}
+              className="h-6 object-contain md:h-8"
             />
+            </Badge>
           </div>
           <div>
-            <Badge className="px-6 py-3 text-sm bg-gradient-to-r from-[#56360d]/40 to-[#140604] text-white md:text-lg font-medium tracking-wider [&>svg]:size-5 cursor-pointer">
+            <Badge className="px-6 py-3 text-sm bg-gradient-to-r from-[#56360d] to-[#140604] text-white md:text-lg font-medium tracking-wider [&>svg]:size-5 cursor-pointer border-4 border-[#140604]">
               WATCH ALL THE ACTION LIVE ON YOUTUBE{" "}
               <FaYoutube className="ml-2 text-white" /> 3CROWN ESPORTS
             </Badge>
@@ -129,12 +132,9 @@ const Leaderboard = () => {
 
         {/* Bottom Section */}
         <div className="mt-8 flex items-end justify-between px-8">
-          <div className="gold-gradient-border">
-            <h2 className="text-white text-sm px-4 py-1.5 md:text-base font-roboto bg-black">
+            <h2 className="text-white/60 text-sm px-4 py-1.5 md:text-base">
               #3CROWNWAPLS2
             </h2>
-          </div>
-
           <div className="flex justify-center items-center gap-4">
             {sponsors.map((sponsor, index) => (
                 <img
@@ -155,10 +155,9 @@ const Leaderboard = () => {
 export default Leaderboard;
 
 /* 
- <div
-                key={index}
-                className="h-10 w-10 rounded-lg bg-[#FFB800] text-xs font-bold text-black md:h-12 md:w-12 md:text-sm"
-              >
-                {sponsor}
-              </div>
+ <div className="gold-gradient-border">
+            <h2 className="text-white text-sm px-4 py-1.5 md:text-base font-roboto bg-black">
+              #3CROWNWAPLS2
+            </h2>
+          </div>
 */
