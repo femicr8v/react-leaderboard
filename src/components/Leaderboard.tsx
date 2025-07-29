@@ -9,9 +9,9 @@ import {
 
 import CrownLogo from "@/assets/5.png";
 import WAPLLogo from "@/assets/WAPL.png";
-import FreefireLogo from "@/assets/freefire.png";
 import { FaYoutube } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
+import FreefireLogo from "@/assets/freefire.png";
 import { DUMMY_TEAMS, table_header, sponsors } from "@/lib/constants";
 
 interface TeamData {
